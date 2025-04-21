@@ -973,4 +973,5 @@ async def protect_log_files(request: Request, call_next):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8002) 
+    port = int(os.getenv("PORT", 8008))
+    uvicorn.run(app, host="0.0.0.0", port=port) 
