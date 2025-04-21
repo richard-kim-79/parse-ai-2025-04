@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: sparql-stats-backend
+    env: python
+    buildCommand: cd backend && pip install -r requirements.txt
+    startCommand: cd backend && gunicorn main:app -k uvicorn.workers.UvicornWorker -b 0.0.0.0:$PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.0
+      - key: ADMIN_USERNAME
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+    healthCheckPath: /
+    autoDeploy: true
+
+  - type: web
+    name: sparql-stats-frontend
+    env: node
+    buildCommand: cd frontend && npm install && npm run build
+    startCommand: cd frontend && npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 18.0.0
+      - key: BACKEND_URL
+        sync: false
+    healthCheckPath: /
+    autoDeploy: true 
