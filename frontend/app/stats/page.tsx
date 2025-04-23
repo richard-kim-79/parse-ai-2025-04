@@ -1,4 +1,4 @@
-import SPARQLStatsDashboard from '@/components/SPARQLStatsDashboard';
+import SPARQLStatsDashboard from '../../components/SPARQLStatsDashboard';
 
 export default function StatsPage() {
   return (
