@@ -4,14 +4,21 @@ const path = require('path');
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  webpack: (config) => {
-    // tsconfig.json의 paths 설정을 webpack alias에 직접 매핑
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      '@': path.resolve(__dirname), // '@'를 frontend 디렉토리의 절대 경로로 설정
-    };
-    // 중요: node_modules도 해석 경로에 포함되어야 함
-    config.resolve.modules.push(path.resolve(__dirname, 'node_modules'));
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+    // Log the existing alias configuration
+    console.log("Existing Webpack resolve.alias:", config.resolve.alias);
+    console.log("Existing Webpack resolve.modules:", config.resolve.modules);
+
+    // Ensure tsconfig paths are respected (Next.js usually does this)
+    // but let's see what the config looks like before potential modifications
+
+    // If needed, explicitly add alias (redundant if tsconfig works, but for debugging)
+    // config.resolve.alias['@'] = path.resolve(__dirname);
+    // console.log("Set Webpack resolve.alias['@'] to:", path.resolve(__dirname));
+
+    // Log final config before returning
+    console.log("Final Webpack resolve.alias:", config.resolve.alias);
+    console.log("Final Webpack resolve.modules:", config.resolve.modules);
 
     return config;
   },
